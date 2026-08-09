@@ -1,0 +1,21 @@
+{
+  "name": "manako-node",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reverse-engineered Manako (PHP) into Node.js + Next.js",
+  "packageManager": "pnpm@11.1.2",
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "build": "pnpm --filter \"./apps/*\" build",
+    "start": "pnpm --parallel --filter \"./apps/*\" start",
+    "lint": "pnpm --parallel --filter \"./apps/*\" lint",
+    "typecheck": "pnpm --parallel --filter \"./apps/*\" typecheck",
+    "db:migrate": "pnpm --filter api prisma migrate dev",
+    "db:studio": "pnpm --filter api prisma studio",
+    "db:generate": "pnpm --filter api prisma generate"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9"
+  }
+}
