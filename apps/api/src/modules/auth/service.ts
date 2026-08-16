@@ -22,7 +22,7 @@ export async function login(
   meta: { ip?: string; user_agent?: string },
 ) {
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !user.password_hash) {
+  if (!user || !user.password_hash || user.deleted_at) {
     throw Object.assign(new Error('Email atau password salah'), { statusCode: 401, code: 'INVALID_CREDENTIALS' });
   }
   const ok = await bcrypt.compare(password, user.password_hash);

@@ -12,7 +12,7 @@ import {
   Users,
   History,
 } from 'lucide-react';
-import { cn } from '@/lib/cn';
+import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/lib/auth-store';
 
 const NAV = [
