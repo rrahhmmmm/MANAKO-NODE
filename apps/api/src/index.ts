@@ -59,7 +59,7 @@ async function build() {
       await v1.register(docTypesRoutes, { prefix: '/doc-types' });
       await v1.register(projectsRoutes, { prefix: '/projects' });
       await v1.register(terminsRoutes,  { prefix: '' });     // mixed prefix
-      await v1.register(documentsRoutes,{ prefix: '/documents' });
+      await v1.register(documentsRoutes,{ prefix: '' });     // mixed prefix (termins/:id/documents, termin-documents/:id, ...)
       await v1.register(dashboardRoutes,{ prefix: '/dashboard' });
       await v1.register(reportsRoutes,  { prefix: '/reports' });
       await v1.register(syncRoutes,     { prefix: '/sync' });

@@ -62,7 +62,6 @@ export type Project = ProjectListItem & {
   contract_file: string | null;
   parent_project_id: number | null;
   updated_at: string | null;
-  termins: unknown[];
 };
 
 type UserOption = { id: number; name: string };

@@ -74,3 +74,15 @@ export async function apiFetch<T>(
   }
   return body.data;
 }
+
+/** Untuk endpoint yang mengembalikan file mentah (bukan envelope JSON), mis. preview/download dokumen. */
+export async function apiFetchBlob(path: string, token?: string): Promise<Blob> {
+  const headers = new Headers();
+  if (token) headers.set('Authorization', `Bearer ${token}`);
+  const res = await fetch(`${API_URL}${path}`, { headers, cache: 'no-store' });
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as ApiResponse<never> | null;
+    throw new ApiError(body && !body.success ? body.error.code : 'NETWORK', body && !body.success ? body.error.message : `Gagal mengambil file (status ${res.status})`);
+  }
+  return res.blob();
+}

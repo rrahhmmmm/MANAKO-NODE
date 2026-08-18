@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DocTypeStage } from '@prisma/client';
 
-const keynameSchema = z
+export const keynameSchema = z
   .string()
   .trim()
   .regex(/^[A-Z][A-Z0-9_]{1,49}$/, 'Keyname harus UPPER_SNAKE_CASE (mis. BAST, ND_PEMBAYARAN)');

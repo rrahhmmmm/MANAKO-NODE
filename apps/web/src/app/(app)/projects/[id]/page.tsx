@@ -9,6 +9,7 @@ import { apiFetch } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth-store';
 import type { Project } from '@/components/forms/ProjectForm';
 import { ProjectStatusBadge } from '@/components/features/projects/ProjectStatusBadge';
+import { TerminAccordion } from '@/components/features/termins/TerminAccordion';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -146,11 +147,7 @@ export default function ProjectDetailPage() {
         </div>
       )}
 
-      {project.termins.length > 0 && (
-        <p className="text-sm text-muted-foreground">
-          {project.termins.length} termin terdaftar — kelola termin & dokumen akan tersedia di tahap berikutnya.
-        </p>
-      )}
+      <TerminAccordion projectId={project.id} projectValue={project.value} projectStartDate={project.start_date} />
     </div>
   );
 }
