@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "dev:worker": "tsx watch src/modules/sync/worker.ts",
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/index.js",
     "start:worker": "node dist/modules/sync/worker.js",

@@ -1,53 +1,59 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
 import { useAuthStore } from '@/lib/auth-store';
-
-type Stats = { running: number; completed: number; inisiasi: number; cancelled: number };
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { StatsCards, type Stats } from '@/components/features/dashboard/StatsCards';
+import { YearFilter } from '@/components/features/dashboard/YearFilter';
+import { ReminderTabs } from '@/components/features/dashboard/ReminderTabs';
+import { ProjectFilters, type ProjectFiltersState } from '@/components/features/dashboard/ProjectFilters';
+import { ProjectList } from '@/components/features/dashboard/ProjectList';
 
 export default function DashboardPage() {
   const token = useAuthStore((s) => s.access_token);
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['stats'],
-    queryFn: () => apiFetch<Stats>('/dashboard/stats', { token: token ?? undefined }),
+  const [year, setYear] = useState<number | undefined>(undefined);
+  const [projectFilters, setProjectFilters] = useState<ProjectFiltersState>({
+    tab: 'running',
+    search: '',
+    classification: ['rutin', 'non_rutin'],
+  });
+
+  const { data: stats, isLoading, error } = useQuery({
+    queryKey: ['stats', year],
+    queryFn: () =>
+      apiFetch<Stats>(`/dashboard/stats${year ? `?year=${year}` : ''}`, { token: token ?? undefined }),
     enabled: !!token,
   });
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Ringkasan project & pengingat dokumen.
-        </p>
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">Ringkasan project & pengingat dokumen.</p>
+        </div>
+        <YearFilter year={year} onChange={setYear} />
       </div>
 
       {isLoading && <div>Loading…</div>}
-      {error && <div className="text-destructive">{(error as Error).message}</div>}
+      {error && <div className="text-destructive text-sm">{(error as Error).message}</div>}
+      {stats && <StatsCards data={stats} />}
 
-      {data && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard label="Running"   value={data.running}   color="bg-emerald-50 text-emerald-700" />
-          <StatCard label="Inisiasi"  value={data.inisiasi}  color="bg-amber-50 text-amber-700" />
-          <StatCard label="Completed" value={data.completed} color="bg-blue-50 text-blue-700" />
-          <StatCard label="Cancelled" value={data.cancelled} color="bg-rose-50 text-rose-700" />
-        </div>
-      )}
-
-      <div className="border rounded-xl p-6 text-sm text-muted-foreground">
-        Reminders & project list akan datang di iterasi berikut. Lihat{' '}
-        <code>docs/06-frontend-pages.md</code> untuk peta halaman.
-      </div>
-    </div>
-  );
-}
-
-function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
-  return (
-    <div className={`rounded-xl border p-4 ${color}`}>
-      <div className="text-sm">{label}</div>
-      <div className="text-3xl font-semibold mt-1">{value}</div>
+      <Tabs defaultValue="reminders">
+        <TabsList>
+          <TabsTrigger value="reminders">🔔 Reminders</TabsTrigger>
+          <TabsTrigger value="projects">📁 Projects</TabsTrigger>
+        </TabsList>
+        <TabsContent value="reminders" className="pt-4">
+          <ReminderTabs />
+        </TabsContent>
+        <TabsContent value="projects" className="pt-4 space-y-4">
+          <ProjectFilters value={projectFilters} onChange={setProjectFilters} />
+          <ProjectList filters={projectFilters} year={year} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

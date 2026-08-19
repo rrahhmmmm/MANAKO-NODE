@@ -19,6 +19,7 @@ import { documentsRoutes } from './modules/documents/routes.js';
 import { dashboardRoutes } from './modules/dashboard/routes.js';
 import { reportsRoutes } from './modules/reports/routes.js';
 import { syncRoutes } from './modules/sync/routes.js';
+import { adminRoutes } from './modules/admin/routes.js';
 
 async function build() {
   const app = Fastify({
@@ -63,6 +64,7 @@ async function build() {
       await v1.register(dashboardRoutes,{ prefix: '/dashboard' });
       await v1.register(reportsRoutes,  { prefix: '/reports' });
       await v1.register(syncRoutes,     { prefix: '/sync' });
+      await v1.register(adminRoutes,    { prefix: '/admin' });
     },
     { prefix: '/api/v1' },
   );
