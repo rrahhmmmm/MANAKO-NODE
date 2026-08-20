@@ -87,4 +87,6 @@ export function resolveAbsolutePath(relativePath: string): string {
 }
 
 export const TERMIN_DOC_SUBDIR = 'termin_docs';
+export const INIT_DOC_SUBDIR = 'init_docs';
+export const CONTRACT_SUBDIR = 'contracts';
 export const ALLOWED_DOC_EXTS = ['pdf', 'doc', 'docx'];

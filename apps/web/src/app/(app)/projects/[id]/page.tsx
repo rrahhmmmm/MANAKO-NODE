@@ -10,7 +10,11 @@ import { useAuthStore } from '@/lib/auth-store';
 import type { Project } from '@/components/forms/ProjectForm';
 import { ProjectStatusBadge } from '@/components/features/projects/ProjectStatusBadge';
 import { TerminAccordion } from '@/components/features/termins/TerminAccordion';
+import { InitDocsPanel } from '@/components/features/init-documents/InitDocsPanel';
+import { KontrakPanel } from '@/components/features/init-documents/KontrakPanel';
+import { PrPoCoveragePanel } from '@/components/features/init-documents/PrPoCoveragePanel';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Dialog,
   DialogClose,
@@ -147,7 +151,34 @@ export default function ProjectDetailPage() {
         </div>
       )}
 
-      <TerminAccordion projectId={project.id} projectValue={project.value} projectStartDate={project.start_date} />
+      <Tabs defaultValue="termins">
+        <TabsList>
+          <TabsTrigger value="termins">Termins</TabsTrigger>
+          <TabsTrigger value="init">Dokumen Inisiasi</TabsTrigger>
+          <TabsTrigger value="kontrak">Kontrak</TabsTrigger>
+          <TabsTrigger value="prpo">PR / PO</TabsTrigger>
+        </TabsList>
+        <TabsContent value="termins" className="pt-4">
+          <TerminAccordion projectId={project.id} projectValue={project.value} projectStartDate={project.start_date} />
+        </TabsContent>
+        <TabsContent value="init" className="pt-4">
+          <InitDocsPanel
+            projectId={project.id}
+            isAdmin={isAdmin}
+            onChanged={() => queryClient.invalidateQueries({ queryKey: ['project', params.id] })}
+          />
+        </TabsContent>
+        <TabsContent value="kontrak" className="pt-4">
+          <KontrakPanel
+            project={project}
+            isAdmin={isAdmin}
+            onChanged={() => queryClient.invalidateQueries({ queryKey: ['project', params.id] })}
+          />
+        </TabsContent>
+        <TabsContent value="prpo" className="pt-4">
+          <PrPoCoveragePanel projectId={project.id} isAdmin={isAdmin} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { docTypesRoutes } from './modules/masters/routes.js';
 import { projectsRoutes } from './modules/projects/routes.js';
 import { terminsRoutes } from './modules/termins/routes.js';
 import { documentsRoutes } from './modules/documents/routes.js';
+import { initDocumentsRoutes } from './modules/init-documents/routes.js';
 import { dashboardRoutes } from './modules/dashboard/routes.js';
 import { reportsRoutes } from './modules/reports/routes.js';
 import { syncRoutes } from './modules/sync/routes.js';
@@ -61,6 +62,7 @@ async function build() {
       await v1.register(projectsRoutes, { prefix: '/projects' });
       await v1.register(terminsRoutes,  { prefix: '' });     // mixed prefix
       await v1.register(documentsRoutes,{ prefix: '' });     // mixed prefix (termins/:id/documents, termin-documents/:id, ...)
+      await v1.register(initDocumentsRoutes, { prefix: '' }); // mixed prefix (projects/:id/init-documents, init-documents/:id, projects/:id/contract, ...)
       await v1.register(dashboardRoutes,{ prefix: '/dashboard' });
       await v1.register(reportsRoutes,  { prefix: '/reports' });
       await v1.register(syncRoutes,     { prefix: '/sync' });
