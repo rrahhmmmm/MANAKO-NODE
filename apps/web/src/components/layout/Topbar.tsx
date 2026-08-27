@@ -5,6 +5,7 @@ import { LogOut, User } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -32,7 +33,9 @@ export function Topbar() {
           {user ? `${user.name} · ${user.role}` : 'Akun'}
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>{user?.email ?? 'Akun'}</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>{user?.email ?? 'Akun'}</DropdownMenuLabel>
+          </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout}>
             <LogOut className="w-4 h-4" />
