@@ -77,6 +77,22 @@ export async function apiFetch<T>(
 
 /** Untuk endpoint yang mengembalikan file mentah (bukan envelope JSON), mis. preview/download dokumen. */
 export async function apiFetchBlob(path: string, token?: string): Promise<Blob> {
+  const res = await fetchBlobResponse(path, token);
+  return res.blob();
+}
+
+/** Sama seperti apiFetchBlob, tapi juga mengembalikan filename dari header Content-Disposition (untuk download file yang di-generate server, mis. export Excel). */
+export async function apiFetchBlobWithFilename(
+  path: string,
+  token?: string,
+): Promise<{ blob: Blob; filename: string | null }> {
+  const res = await fetchBlobResponse(path, token);
+  const disposition = res.headers.get('Content-Disposition');
+  const match = disposition?.match(/filename="?([^"]+)"?/);
+  return { blob: await res.blob(), filename: match?.[1] ?? null };
+}
+
+async function fetchBlobResponse(path: string, token?: string): Promise<Response> {
   const headers = new Headers();
   if (token) headers.set('Authorization', `Bearer ${token}`);
   const res = await fetch(`${API_URL}${path}`, { headers, cache: 'no-store' });
@@ -84,5 +100,5 @@ export async function apiFetchBlob(path: string, token?: string): Promise<Blob> 
     const body = (await res.json().catch(() => null)) as ApiResponse<never> | null;
     throw new ApiError(body && !body.success ? body.error.code : 'NETWORK', body && !body.success ? body.error.message : `Gagal mengambil file (status ${res.status})`);
   }
-  return res.blob();
+  return res;
 }

@@ -82,3 +82,14 @@
     @apply font-sans;
   }
 }
+
+@media print {
+  aside,
+  header {
+    display: none !important;
+  }
+  main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+}

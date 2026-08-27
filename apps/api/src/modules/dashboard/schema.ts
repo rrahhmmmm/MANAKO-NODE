@@ -7,7 +7,9 @@ export const dashboardStatsQuerySchema = z.object({
 export const dashboardRemindersQuerySchema = z.object({
   tab: z.enum(['overdue', 'pending']).default('overdue'),
   page: z.coerce.number().int().min(1).default(1),
-  per_page: z.coerce.number().int().min(1).max(100).default(20),
+  // max dinaikkan dari 100 -> 1000 supaya /reports/print bisa ambil semua reminders
+  // per tab dalam 1 request (reuse GET /dashboard/reminders, tanpa endpoint baru).
+  per_page: z.coerce.number().int().min(1).max(1000).default(20),
 });
 
 const classificationEnum = z.enum(['rutin', 'non_rutin']);
