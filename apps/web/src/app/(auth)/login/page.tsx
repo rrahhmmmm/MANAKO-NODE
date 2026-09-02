@@ -61,8 +61,8 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#04070d] p-3 sm:p-6 md:p-10">
-      <div className="relative h-[calc(100vh-1.5rem)] w-full max-w-[1600px] overflow-hidden rounded-3xl shadow-2xl sm:h-[calc(100vh-3rem)] md:h-[calc(100vh-5rem)]">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#0C1C33] p-3 sm:p-6 md:p-10">
+      <div className="relative h-[calc(100vh-4rem)] w-full max-w-[1600px] overflow-hidden rounded-3xl shadow-2xl sm:h-[calc(100vh-6rem)] md:h-[calc(100vh-10rem)]">
         <div className="absolute inset-0 bg-[url('/images/login-bg.jpg')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
 
@@ -88,7 +88,7 @@ function LoginForm() {
               </p>
             </div>
 
-            <Card className="w-full max-w-sm border-white/15 bg-white/10 py-8 text-white shadow-2xl backdrop-blur-xl [--card-spacing:1.5rem] md:mr-4">
+            <Card className="w-full max-w-[320px] border-white/15 bg-white/10 py-8 text-white shadow-2xl backdrop-blur-xl [--card-spacing:1.5rem] md:mr-4">
               <CardContent className="space-y-5">
                 <div>
                   <h2 className="text-xl font-semibold">Masuk</h2>
