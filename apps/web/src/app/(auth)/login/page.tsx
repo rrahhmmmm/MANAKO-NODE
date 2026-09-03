@@ -88,8 +88,8 @@ function LoginForm() {
               </p>
             </div>
 
-            <Card className="w-full max-w-[320px] border-white/15 bg-white/10 py-8 text-white shadow-2xl backdrop-blur-xl [--card-spacing:1.5rem] md:mr-4">
-              <CardContent className="space-y-5 px-8">
+            <Card className="w-full max-w-[420px] border-white/15 bg-white/10 py-8 text-white shadow-2xl backdrop-blur-xl [--card-spacing:1.5rem] md:mr-4">
+              <CardContent className="space-y-9 px-8">
                 <div>
                   <h2 className="text-xl font-semibold">Masuk</h2>
                   <p className="text-sm text-white/70">Sign in ke sistem manajemen kontrak</p>
@@ -142,7 +142,7 @@ function LoginForm() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-blue-600 text-white hover:bg-blue-500"
+                      className="h-10 w-full text-xs bg-blue-600 text-white hover:bg-blue-500"
                     >
                       {loading ? 'Loading…' : 'Sign In'}
                     </Button>
