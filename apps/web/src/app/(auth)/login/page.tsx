@@ -77,18 +77,8 @@ function LoginForm() {
             </div>
           </div>
 
-          <div className="flex flex-1 flex-col justify-center gap-10 py-10 md:flex-row md:items-center md:justify-between md:gap-6">
-            <div className="hidden max-w-lg md:block">
-              <h1 className="text-5xl font-bold leading-tight text-white">Kelola Setiap Kontrak Tanpa Terlewat</h1>
-              <p className="mt-6 text-lg text-white/85">
-                Satu dashboard untuk dokumen, jadwal, dan status kontrak perusahaan Anda.
-              </p>
-              <p className="mt-2 text-sm text-white/60">
-                Masuk untuk memantau kontrak dan aktivitas tim secara real-time.
-              </p>
-            </div>
-
-            <Card className="w-full max-w-[420px] border-white/15 bg-white/10 py-8 text-white shadow-2xl backdrop-blur-xl [--card-spacing:1.5rem] md:mr-4">
+          <div className="flex flex-1 flex-col justify-center gap-10 py-10 md:flex-row md:items-center md:justify-center md:gap-6">
+            <Card className="w-full max-w-[420px] border-white/15 bg-white/10 py-8 text-white shadow-2xl backdrop-blur-xl [--card-spacing:1.5rem]">
               <CardContent className="space-y-9 px-8">
                 <div>
                   <h2 className="text-xl font-semibold">Masuk</h2>
